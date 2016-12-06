@@ -3,26 +3,40 @@ package com.jonfhancock.dumbviewholder;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements SmartViewHolder.ExcellentAdventureListener {
+
+    private ExcellentAdventureDataSource dataSource;
+    private SuperChillAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
         setSupportActionBar(toolbar);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        SuperChillAdapter adapter = new SuperChillAdapter(getLayoutInflater(),this);
+        adapter = new SuperChillAdapter(getLayoutInflater(),this);
+
+        dataSource = new ExcellentAdventureDataSource();
+        adapter.updateItems(dataSource.getRandomAdventures());
         recyclerView.setAdapter(adapter);
 
-        ExcellentAdventureDataSource dataSource = new ExcellentAdventureDataSource();
-        adapter.updateItems(dataSource.getRandomAdventures());
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.updateItems(dataSource.getRandomAdventures());
+            }
+        });
+
     }
 
     @Override
