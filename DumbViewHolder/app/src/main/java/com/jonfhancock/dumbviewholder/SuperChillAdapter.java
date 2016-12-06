@@ -21,8 +21,12 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
         this.adventureListener = adventureListener;
         items = new ArrayList<>();
     }
-
+    boolean operationPending;
     public void updateItems(final List<ExcellentAdventure> newItems) {
+        if(operationPending){
+            return;
+        }
+        operationPending = true;
         final List<ExcellentAdventure> oldItems = new ArrayList<>(this.items);
 
         final Handler handler = new Handler();
@@ -65,6 +69,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
                         if (newItems != null) {
                             items.addAll(newItems);
                         }
+                        operationPending = false;
                     }
                 });
 
