@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 
@@ -18,7 +18,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
     private List<ExcellentAdventure> items;
     private LayoutInflater inflater;
     private SmartViewHolder.ExcellentAdventureListener adventureListener;
-    private Queue<List<ExcellentAdventure>> pendingUpdates;
+    private Deque<List<ExcellentAdventure>> pendingUpdates;
 
     public SuperChillAdapter(LayoutInflater inflater, SmartViewHolder.ExcellentAdventureListener adventureListener) {
         this.inflater = inflater;
@@ -28,7 +28,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
 
     }
     public void updateItems(final List<ExcellentAdventure> newItems) {
-        pendingUpdates.add(newItems);
+        pendingUpdates.push(newItems);
         BusDriver.getInstance().getBus().post(new PendingUdatesChangeEvent(pendingUpdates.size()));
         if(pendingUpdates.size() > 1){
             return;
@@ -77,7 +77,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        pendingUpdates.remove();
+                        pendingUpdates.remove(newItems);
                         BusDriver.getInstance().getBus().post(new PendingUdatesChangeEvent(pendingUpdates.size()));
                         diffResult.dispatchUpdatesTo(SuperChillAdapter.this);
                         items.clear();
@@ -85,7 +85,10 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
                             items.addAll(newItems);
                         }
                         if(pendingUpdates.size() > 0){
-                            updateItemsInternal(pendingUpdates.peek());
+                            List<ExcellentAdventure> latest = pendingUpdates.pop();
+                            pendingUpdates.clear();
+                            updateItemsInternal(latest);
+
                         }
                     }
                 });
