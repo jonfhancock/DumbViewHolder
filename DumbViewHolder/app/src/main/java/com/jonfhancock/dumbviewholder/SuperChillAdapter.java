@@ -7,26 +7,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Random;
 
 
 public class SuperChillAdapter extends RecyclerView.Adapter {
     private List<ExcellentAdventure> items;
     private LayoutInflater inflater;
     private SmartViewHolder.ExcellentAdventureListener adventureListener;
+    private Queue<List<ExcellentAdventure>> pendingUpdates;
 
     public SuperChillAdapter(LayoutInflater inflater, SmartViewHolder.ExcellentAdventureListener adventureListener) {
         this.inflater = inflater;
         this.adventureListener = adventureListener;
         items = new ArrayList<>();
+        pendingUpdates = new ArrayDeque<>();
+
     }
-    boolean operationPending;
     public void updateItems(final List<ExcellentAdventure> newItems) {
-        if(operationPending){
+        pendingUpdates.add(newItems);
+
+        if(pendingUpdates.size() > 1){
             return;
         }
-        operationPending = true;
+
+        updateItemsInternal(newItems);
+
+
+    }
+
+    private void updateItemsInternal(final List<ExcellentAdventure> newItems) {
         final List<ExcellentAdventure> oldItems = new ArrayList<>(this.items);
 
         final Handler handler = new Handler();
@@ -44,7 +57,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
                     public int getNewListSize() {
                         // Simulate a really long running diff calculation.
                         try {
-                            Thread.sleep(3000);
+                            Thread.sleep(new Random().nextInt(3000));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -64,19 +77,20 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        pendingUpdates.remove();
                         diffResult.dispatchUpdatesTo(SuperChillAdapter.this);
                         items.clear();
                         if (newItems != null) {
                             items.addAll(newItems);
                         }
-                        operationPending = false;
+                        if(pendingUpdates.size() > 0){
+                            updateItemsInternal(pendingUpdates.peek());
+                        }
                     }
                 });
 
             }
         }).start();
-
-
     }
 
     @Override
