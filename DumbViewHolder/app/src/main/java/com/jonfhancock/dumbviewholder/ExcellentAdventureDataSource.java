@@ -27,7 +27,7 @@ public class ExcellentAdventureDataSource {
         adventures.add(new ExcellentAdventure(1879, ERA_AD, "Meet Billy the Kid", "34.4775884", "-104.2711666", "Fort Sumner, MN", "Billy_the_Kid"));
         adventures.add(new ExcellentAdventure(1461, ERA_AD, "Visit Princess Elizabeth. Watch out for the king!", "51.501364", "-0.14189", "London, England", "Henry_VI_of_England"));
         adventures.add(new ExcellentAdventure(1901, ERA_AD, "Visit Sigmund Freud", "48.2185966", "16.3608401", "Vienna, Austria", "Sigmund_Freud"));
-        adventures.add(new ExcellentAdventure(1810, ERA_AD, "Visit Bethoven", "51.3053004", "9.4814412", "Kassel, Germany", "Ludwig_van_Beethoven"));
+        adventures.add(new ExcellentAdventure(1810, ERA_AD, "Visit Beethoven", "51.3053004", "9.4814412", "Kassel, Germany", "Ludwig_van_Beethoven"));
         adventures.add(new ExcellentAdventure(1492, ERA_AD, "Visit Joan of Arc", "47.9014983", "1.9054311", "Orleans, France", "Joan_of_Arc"));
         adventures.add(new ExcellentAdventure(1863, ERA_AD, "Vist Abraham Lincoln", "38.8976094", "-77.0389236", "Washington, DC", "Abraham_Lincoln"));
     }
