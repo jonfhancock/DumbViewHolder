@@ -29,7 +29,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
     }
     public void updateItems(final List<ExcellentAdventure> newItems) {
         pendingUpdates.add(newItems);
-
+        BusDriver.getInstance().getBus().post(new PendingUdatesChangeEvent(pendingUpdates.size()));
         if(pendingUpdates.size() > 1){
             return;
         }
@@ -78,6 +78,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
                     @Override
                     public void run() {
                         pendingUpdates.remove();
+                        BusDriver.getInstance().getBus().post(new PendingUdatesChangeEvent(pendingUpdates.size()));
                         diffResult.dispatchUpdatesTo(SuperChillAdapter.this);
                         items.clear();
                         if (newItems != null) {
@@ -108,5 +109,14 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+
+    public static class PendingUdatesChangeEvent{
+        int count;
+
+        public PendingUdatesChangeEvent(int count) {
+            this.count = count;
+        }
     }
 }
