@@ -1,5 +1,6 @@
 package com.jonfhancock.dumbviewholder;
 
+import android.os.Handler;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,11 +28,12 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
         if (newItems != null) {
             items.addAll(newItems);
         }
+        final Handler handler = new Handler();
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                     @Override
                     public int getOldListSize() {
                         return oldItems.size();
@@ -58,7 +60,13 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
                         return oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition));
                     }
                 });
-                diffResult.dispatchUpdatesTo(SuperChillAdapter.this);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        diffResult.dispatchUpdatesTo(SuperChillAdapter.this);
+
+                    }
+                });
 
             }
         }).start();
