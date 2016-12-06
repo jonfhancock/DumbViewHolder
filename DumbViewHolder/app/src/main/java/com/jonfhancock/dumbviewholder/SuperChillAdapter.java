@@ -27,7 +27,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
         if (newItems != null) {
             items.addAll(newItems);
         }
-        DiffUtil.calculateDiff(new DiffUtil.Callback() {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
             @Override
             public int getOldListSize() {
                 return oldItems.size();
@@ -53,7 +53,9 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
             public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                 return oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition));
             }
-        }).dispatchUpdatesTo(this);
+        });
+
+        diffResult.dispatchUpdatesTo(this);
 
     }
 
