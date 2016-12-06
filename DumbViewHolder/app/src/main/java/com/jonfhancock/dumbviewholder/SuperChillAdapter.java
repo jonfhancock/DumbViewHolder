@@ -23,9 +23,9 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
 
     public void updateItems(final List<ExcellentAdventure> newItems) {
         final List<ExcellentAdventure> oldItems = new ArrayList<>(this.items);
-        this.items.clear();
+        items.clear();
         if (newItems != null) {
-            this.items.addAll(newItems);
+            items.addAll(newItems);
         }
         DiffUtil.calculateDiff(new DiffUtil.Callback() {
             @Override
@@ -35,7 +35,13 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
 
             @Override
             public int getNewListSize() {
-                return items.size();
+                // Simulate a really long running diff calculation.
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return newItems.size();
             }
 
             @Override
@@ -54,7 +60,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.item_excellent_adventure, parent, false);
-        return new SmartViewHolder(v,adventureListener);
+        return new SmartViewHolder(v, adventureListener);
     }
 
     @Override
