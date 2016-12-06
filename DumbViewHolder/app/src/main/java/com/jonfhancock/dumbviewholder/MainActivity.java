@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements SmartViewHolder.E
         adapter = new SuperChillAdapter(getLayoutInflater(),this);
 
         dataSource = new ExcellentAdventureDataSource();
-        adapter.updateItems(dataSource.getRandomAdventures());
+        adapter.updateItems(dataSource.getAdventures());
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
