@@ -24,10 +24,7 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
 
     public void updateItems(final List<ExcellentAdventure> newItems) {
         final List<ExcellentAdventure> oldItems = new ArrayList<>(this.items);
-        items.clear();
-        if (newItems != null) {
-            items.addAll(newItems);
-        }
+
         final Handler handler = new Handler();
         new Thread(new Runnable() {
             @Override
@@ -64,7 +61,10 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
                     @Override
                     public void run() {
                         diffResult.dispatchUpdatesTo(SuperChillAdapter.this);
-
+                        items.clear();
+                        if (newItems != null) {
+                            items.addAll(newItems);
+                        }
                     }
                 });
 
