@@ -29,7 +29,7 @@ public class ExcellentAdventureDataSource {
         adventures.add(new ExcellentAdventure(1901, ERA_AD, "Visit Sigmund Freud", "48.2185966", "16.3608401", "Vienna, Austria", "Sigmund_Freud"));
         adventures.add(new ExcellentAdventure(1810, ERA_AD, "Visit Beethoven", "51.3053004", "9.4814412", "Kassel, Germany", "Ludwig_van_Beethoven"));
         adventures.add(new ExcellentAdventure(1492, ERA_AD, "Visit Joan of Arc", "47.9014983", "1.9054311", "Orleans, France", "Joan_of_Arc"));
-        adventures.add(new ExcellentAdventure(1863, ERA_AD, "Vist Abraham Lincoln", "38.8976094", "-77.0389236", "Washington, DC", "Abraham_Lincoln"));
+        adventures.add(new ExcellentAdventure(1863, ERA_AD, "Visit Abraham Lincoln", "38.8976094", "-77.0389236", "Washington, DC", "Abraham_Lincoln"));
     }
 
     public List<ExcellentAdventure> getAdventures() {
