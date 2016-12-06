@@ -11,6 +11,7 @@ public class SmartViewHolder extends RecyclerView.ViewHolder {
     TextView textLocation;
     TextView textDate;
     ImageView mapIcon;
+    View textContainer;
 
     ExcellentAdventure item;
     ExcellentAdventureListener listener;
@@ -27,7 +28,9 @@ public class SmartViewHolder extends RecyclerView.ViewHolder {
         textLocation = (TextView) itemView.findViewById(R.id.text_location);
         textDate = (TextView) itemView.findViewById(R.id.text_date);
         mapIcon = (ImageView) itemView.findViewById(R.id.map_icon);
-        textTitle.setOnClickListener(new View.OnClickListener() {
+        textContainer = itemView.findViewById(R.id.text_container);
+
+        textContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onTitleClicked(item);
