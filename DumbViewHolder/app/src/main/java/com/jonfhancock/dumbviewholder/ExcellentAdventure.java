@@ -51,4 +51,20 @@ public class ExcellentAdventure {
     public String getLocationName() { return locationName; }
 
     public String getWikipediaTitle() { return wikipediaTitle; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ExcellentAdventure that = (ExcellentAdventure) o;
+
+        return getTitle() != null ? getTitle().equals(that.getTitle()) : that.getTitle() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getTitle() != null ? getTitle().hashCode() : 0;
+    }
 }
