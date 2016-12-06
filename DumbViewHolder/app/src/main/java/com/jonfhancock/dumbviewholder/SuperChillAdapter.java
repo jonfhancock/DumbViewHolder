@@ -27,35 +27,42 @@ public class SuperChillAdapter extends RecyclerView.Adapter {
         if (newItems != null) {
             items.addAll(newItems);
         }
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+        new Thread(new Runnable() {
             @Override
-            public int getOldListSize() {
-                return oldItems.size();
-            }
+            public void run() {
 
-            @Override
-            public int getNewListSize() {
-                // Simulate a really long running diff calculation.
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return newItems.size();
-            }
+                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                    @Override
+                    public int getOldListSize() {
+                        return oldItems.size();
+                    }
 
-            @Override
-            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                return oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition));
-            }
+                    @Override
+                    public int getNewListSize() {
+                        // Simulate a really long running diff calculation.
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return newItems.size();
+                    }
 
-            @Override
-            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                return oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition));
-            }
-        });
+                    @Override
+                    public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                        return oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition));
+                    }
 
-        diffResult.dispatchUpdatesTo(this);
+                    @Override
+                    public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                        return oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition));
+                    }
+                });
+                diffResult.dispatchUpdatesTo(SuperChillAdapter.this);
+
+            }
+        }).start();
+
 
     }
 
