@@ -43,10 +43,8 @@ public class ExcellentAdventureDataSource {
 
         for (int i = 0; i < size; i++) {
             int desiredIndex = random.nextInt(adventures.size());
-            Log.d("DataSource", "desired index is: " + desiredIndex);
             while (usedAdventures.get(desiredIndex, false)) {
                 desiredIndex = random.nextInt(adventures.size());
-                Log.d("DataSource", "next desired index is: " + desiredIndex);
             }
             usedAdventures.put(desiredIndex, true);
             randAdventures.add(adventures.get(desiredIndex));
