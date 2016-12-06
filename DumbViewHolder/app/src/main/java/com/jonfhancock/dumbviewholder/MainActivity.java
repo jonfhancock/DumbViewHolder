@@ -8,9 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements SmartViewHolder.ExcellentAdventureListener {
 
     @Override
@@ -24,10 +21,8 @@ public class MainActivity extends AppCompatActivity implements SmartViewHolder.E
         SuperChillAdapter adapter = new SuperChillAdapter(getLayoutInflater(),this);
         recyclerView.setAdapter(adapter);
 
-        List<ExcellentAdventure> adventures = new ArrayList<>();
-        adventures.add(new ExcellentAdventure(420,ExcellentAdventure.ERA_BC,"Visit Socrates","37.97155","23.7245479","Parthenon, Athens, Greece", "Socrates"));
-        adventures.add(new ExcellentAdventure(1815,ExcellentAdventure.ERA_AD,"Battle of Waterloo","50.7120367","4.4143367","Waterloo, Belgium", "Battle_of_Waterloo"));
-        adapter.updateItems(adventures);
+        ExcellentAdventureDataSource dataSource = new ExcellentAdventureDataSource();
+        adapter.updateItems(dataSource.getRandomAdventures());
     }
 
     @Override
