@@ -7,11 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
-import java.util.Random;
 
 
 public abstract class BaseAdapter extends RecyclerView.Adapter {
@@ -62,7 +59,15 @@ public abstract class BaseAdapter extends RecyclerView.Adapter {
             }
         }).start();
     }
-
+    protected void dispatchUpdates(List<ExcellentAdventure> newItems, DiffUtil.DiffResult diffResult) {
+        diffResult.dispatchUpdatesTo(this);
+        items.clear();
+        if (newItems != null) {
+            items.addAll(newItems);
+        }
+    }
     protected abstract void applyDiffResult(List<ExcellentAdventure> newItems, DiffUtil.DiffResult diffResult);
     protected abstract void updateItems(List<ExcellentAdventure> newItems);
+
+
 }
