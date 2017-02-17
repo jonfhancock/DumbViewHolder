@@ -9,7 +9,8 @@ import java.util.Queue;
 
 
 public class QueueAdapter extends BaseAdapter {
-    private Queue<List<ExcellentAdventure>> pendingUpdates;
+    private Queue<List<Item>> pendingUpdates =
+            new ArrayDeque<>();
 
     public QueueAdapter(LayoutInflater inflater, SmartViewHolder.ExcellentAdventureListener adventureListener) {
         super(inflater, adventureListener);
@@ -17,7 +18,7 @@ public class QueueAdapter extends BaseAdapter {
     }
 
     @Override
-    public void updateItems(final List<ExcellentAdventure> newItems) {
+    public void updateItems(final List<Item> newItems) {
         pendingUpdates.add(newItems);
         if (pendingUpdates.size() > 1) {
             return;
@@ -26,12 +27,12 @@ public class QueueAdapter extends BaseAdapter {
     }
 
     @Override
-    protected void applyDiffResult(List<ExcellentAdventure> newItems, DiffUtil.DiffResult diffResult) {
+    protected void applyDiffResult(List<Item> newItems,
+                                   DiffUtil.DiffResult diffResult) {
         pendingUpdates.remove();
         dispatchUpdates(newItems, diffResult);
         if (pendingUpdates.size() > 0) {
             updateItemsInternal(pendingUpdates.peek());
         }
     }
-
 }

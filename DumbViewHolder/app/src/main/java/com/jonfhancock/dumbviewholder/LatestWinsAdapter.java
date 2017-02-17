@@ -9,7 +9,8 @@ import java.util.List;
 
 
 public class LatestWinsAdapter extends BaseAdapter {
-    private Deque<List<ExcellentAdventure>> pendingUpdates;
+    private Deque<List<Item>> pendingUpdates =
+            new ArrayDeque<>();
 
     public LatestWinsAdapter(LayoutInflater inflater, SmartViewHolder.ExcellentAdventureListener adventureListener) {
         super(inflater, adventureListener);
@@ -17,7 +18,7 @@ public class LatestWinsAdapter extends BaseAdapter {
     }
 
     @Override
-    public void updateItems(final List<ExcellentAdventure> newItems) {
+    public void updateItems(final List<Item> newItems) {
         pendingUpdates.push(newItems);
         if (pendingUpdates.size() > 1) {
             return;
@@ -26,14 +27,14 @@ public class LatestWinsAdapter extends BaseAdapter {
     }
 
     @Override
-    protected void applyDiffResult(List<ExcellentAdventure> newItems, DiffUtil.DiffResult diffResult) {
+    protected void applyDiffResult(List<Item> newItems,
+                                   DiffUtil.DiffResult diffResult) {
         pendingUpdates.remove(newItems);
         dispatchUpdates(newItems,diffResult);
         if (pendingUpdates.size() > 0) {
-            List<ExcellentAdventure> latest = pendingUpdates.pop();
+            List<Item> latest = pendingUpdates.pop();
             pendingUpdates.clear();
             updateItemsInternal(latest);
         }
     }
-
 }

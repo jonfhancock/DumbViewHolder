@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements SmartViewHolder.E
     }
 
     @Override
-    public void onMapClicked(ExcellentAdventure item) {
+    public void onMapClicked(Item item) {
         String url = String.format("geo:%s,%s?q=%s", item.getLat(), item.getLon(), item.getLocationName());
         Uri gmmIntentUri = Uri.parse(url);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements SmartViewHolder.E
     }
 
     @Override
-    public void onTitleClicked(ExcellentAdventure item) {
+    public void onTitleClicked(Item item) {
         String url = "http://en.wikipedia.com/wiki/" + item.getWikipediaTitle();
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(i);

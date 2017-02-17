@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 
-public class ExcellentAdventure {
+public class Item {
 
     @Retention(SOURCE)
     @StringDef({ERA_BC, ERA_AD})
@@ -25,10 +25,10 @@ public class ExcellentAdventure {
     private String locationName;
     private String wikipediaTitle;
 
-    public ExcellentAdventure(int year, String era, String title,
-                              String lat, String lon,
-                              String locationName,
-                              String wikipediaTitle) {
+    public Item(int year, String era, String title,
+                String lat, String lon,
+                String locationName,
+                String wikipediaTitle) {
         this.year = year;
         this.era = era;
         this.title = title;
@@ -57,7 +57,7 @@ public class ExcellentAdventure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ExcellentAdventure that = (ExcellentAdventure) o;
+        Item that = (Item) o;
 
         return getTitle() != null ? getTitle().equals(that.getTitle()) : that.getTitle() == null;
 

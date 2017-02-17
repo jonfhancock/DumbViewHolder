@@ -13,12 +13,12 @@ public class SmartViewHolder extends RecyclerView.ViewHolder {
     ImageView mapIcon;
     View textContainer;
 
-    ExcellentAdventure item;
+    Item item;
     ExcellentAdventureListener listener;
 
     public interface ExcellentAdventureListener{
-        void onMapClicked(ExcellentAdventure item);
-        void onTitleClicked(ExcellentAdventure item);
+        void onMapClicked(Item item);
+        void onTitleClicked(Item item);
     }
 
     public SmartViewHolder(View itemView, final ExcellentAdventureListener listener) {
@@ -44,13 +44,13 @@ public class SmartViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void setItem(ExcellentAdventure item) {
+    public void setItem(Item item) {
         this.item = item;
         textTitle.setText(item.getTitle());
         textLocation.setText(item.getLocationName());
         textDate.setText(getFormattedDate(item));
     }
-    private String getFormattedDate(ExcellentAdventure item) {
+    private String getFormattedDate(Item item) {
         String date = item.getYear() + " " + item.getEra();
         return date;
     }

@@ -8,11 +8,11 @@ import java.util.Random;
 /**
  * Created by jhancock on 2/15/17.
  */
-class ExcellentDiffCallback extends DiffUtil.Callback {
-    private final List<ExcellentAdventure> oldItems;
-    private final List<ExcellentAdventure> newItems;
+class DiffCb extends DiffUtil.Callback {
+    private final List<Item> oldItems;
+    private final List<Item> newItems;
 
-    public ExcellentDiffCallback(List<ExcellentAdventure> oldItems, List<ExcellentAdventure> newItems) {
+    public DiffCb(List<Item> oldItems, List<Item> newItems) {
         this.oldItems = oldItems;
         this.newItems = newItems;
     }

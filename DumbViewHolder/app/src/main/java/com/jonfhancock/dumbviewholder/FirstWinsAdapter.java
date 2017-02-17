@@ -13,7 +13,7 @@ public class FirstWinsAdapter extends BaseAdapter {
     }
 
     @Override
-    public void updateItems(final List<ExcellentAdventure> newItems) {
+    public void updateItems(final List<Item> newItems) {
         if (operationPending) {
             return;
         }
@@ -22,7 +22,7 @@ public class FirstWinsAdapter extends BaseAdapter {
     }
 
     @Override
-    protected void applyDiffResult(List<ExcellentAdventure> newItems,
+    protected void applyDiffResult(List<Item> newItems,
                                    DiffUtil.DiffResult diffResult) {
         dispatchUpdates(newItems, diffResult);
         operationPending = false;

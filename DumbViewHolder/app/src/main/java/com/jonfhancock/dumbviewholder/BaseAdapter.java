@@ -12,7 +12,7 @@ import java.util.List;
 
 
 public abstract class BaseAdapter extends RecyclerView.Adapter {
-    protected List<ExcellentAdventure> items;
+    protected List<Item> items;
     private LayoutInflater inflater;
     private SmartViewHolder.ExcellentAdventureListener adventureListener;
 
@@ -41,14 +41,15 @@ public abstract class BaseAdapter extends RecyclerView.Adapter {
         return items.size();
     }
 
-    void updateItemsInternal(final List<ExcellentAdventure> newItems) {
-        final List<ExcellentAdventure> oldItems = new ArrayList<>(this.items);
+    void updateItemsInternal(final List<Item> newItems) {
+        final List<Item> oldItems = new ArrayList<>(this.items);
 
         final Handler handler = new Handler();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ExcellentDiffCallback(oldItems, newItems));
+                final DiffUtil.DiffResult diffResult =
+                        DiffUtil.calculateDiff(new DiffCb(oldItems, newItems));
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -59,15 +60,15 @@ public abstract class BaseAdapter extends RecyclerView.Adapter {
             }
         }).start();
     }
-    protected void dispatchUpdates(List<ExcellentAdventure> newItems, DiffUtil.DiffResult diffResult) {
+    protected void dispatchUpdates(List<Item> newItems, DiffUtil.DiffResult diffResult) {
         diffResult.dispatchUpdatesTo(this);
         items.clear();
         if (newItems != null) {
             items.addAll(newItems);
         }
     }
-    protected abstract void applyDiffResult(List<ExcellentAdventure> newItems, DiffUtil.DiffResult diffResult);
-    protected abstract void updateItems(List<ExcellentAdventure> newItems);
+    protected abstract void applyDiffResult(List<Item> newItems, DiffUtil.DiffResult diffResult);
+    protected abstract void updateItems(List<Item> newItems);
 
 
 }
